@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7d7af7a99df4644b1c31bf0a253e12, type: 3}
-  m_Name: Sword
+  m_Script: {fileID: 11500000, guid: 6c525fd2c41533945a4d0250872d96ca, type: 3}
+  m_Name: TestItem
   m_EditorClassIdentifier: 
+  id: 0
+  itemName: Test item
+  stackable: 0
