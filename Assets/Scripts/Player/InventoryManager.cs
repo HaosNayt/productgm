@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public class InventorySlot {
+        public Item item;
+        public int quantity;
+    }
+
     public static InventoryManager Instance;
     public Item emptyItem;
     public List<InventorySlot> inventory = new();
-    [SerializeField] int selectedSlot;
+    public int selectedSlot;
+
 
     private void Awake()
     {
         Instance = this;
         selectedSlot = 0;
+
+        //should be changed
         for (int i = 0; i<=5;i++){
             inventory.Add(new InventorySlot{item = emptyItem, quantity = 0});
         }
@@ -20,29 +28,34 @@ public class InventoryManager : MonoBehaviour
 
     public void Update()
     {
+        //should probably be changed
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             selectedSlot = 0;
-            Debug.Log(inventory[selectedSlot].item.name +" amount "+ inventory[selectedSlot].quantity + " in slot "+ selectedSlot);
+            Debug.Log(inventory[selectedSlot].item.itemName +" amount "+ inventory[selectedSlot].quantity + " in slot "+ (selectedSlot+1));
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             selectedSlot = 1;
-            Debug.Log(inventory[selectedSlot].item.name +" amount "+ inventory[selectedSlot].quantity+ " in slot "+ selectedSlot);
+            Debug.Log(inventory[selectedSlot].item.itemName +" amount "+ inventory[selectedSlot].quantity+ " in slot "+ (selectedSlot+1));
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             selectedSlot = 2;
-            Debug.Log(inventory[selectedSlot].item.name +" amount "+ inventory[selectedSlot].quantity + " in slot "+ selectedSlot);
+            Debug.Log(inventory[selectedSlot].item.itemName +" amount "+ inventory[selectedSlot].quantity + " in slot "+ (selectedSlot+1));
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             selectedSlot = 3;
-            Debug.Log(inventory[selectedSlot].item.name +" amount "+ inventory[selectedSlot].quantity + " in slot "+ selectedSlot);
+            Debug.Log(inventory[selectedSlot].item.itemName +" amount "+ inventory[selectedSlot].quantity + " in slot "+ (selectedSlot+1));
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             selectedSlot = 4;
-            Debug.Log(inventory[selectedSlot].item.name +" amount "+ inventory[selectedSlot].quantity + " in slot "+ selectedSlot);
+            Debug.Log(inventory[selectedSlot].item.itemName +" amount "+ inventory[selectedSlot].quantity + " in slot "+ (selectedSlot+1));
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse0)){
+            Attack();
         }
     }
 
@@ -51,13 +64,13 @@ public class InventoryManager : MonoBehaviour
             for(int i =0; i<=inventory.Capacity;i++){
                 if(item.id == inventory[i].item.id && item.stackable){
                     inventory[i].quantity++;
-                    Debug.Log("increase quantity for item '"+ item + "' in slot:" + i);
+                    Debug.Log("increase quantity for item '"+ item.itemName + "' in slot:" + (i+1));
                     
                     return;
                 }
                 if (inventory[i].item.id == 0){
                     inventory[i] = new InventorySlot{item=item, quantity = 1};
-                    Debug.Log("new item stored in slot:" + i);
+                    Debug.Log("new item stored in slot:" + (i+1));
                     return;
                 }
         }
@@ -67,9 +80,16 @@ public class InventoryManager : MonoBehaviour
     {
         // inventory.Remove(item);
     }
+
+    public void Attack(){
+        RaycastHit target;
+        if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out target, 2)){
+            if(target.collider.tag == "Enemy"){
+                target.collider.gameObject.GetComponent<Enemy>().health -= inventory[selectedSlot].item.damage;
+            }
+            Debug.Log(target.collider.gameObject.name);
+        }
+    }
 }
 
-public class InventorySlot{
-    public Item item;
-    public int quantity;
-}
+

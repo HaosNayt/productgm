@@ -9,11 +9,14 @@ public class ItemPickup : MonoBehaviour
     void Pickup()
     {
         InventoryManager.Instance.AddItem(item);
+        Destroy(transform.parent.gameObject);
         Destroy(gameObject);
     }
 
-    private void OnMouseDown()
+    private void OnTriggerEnter(Collider collider)
     {
-        Pickup();
+        if(collider.tag == "Player"){
+            Pickup();
+        }
     }
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c525fd2c41533945a4d0250872d96ca, type: 3}
   m_Name: TestItem2
   m_EditorClassIdentifier: 
-  id: 1
+  id: 2
   itemName: Test Item 2
   stackable: 0

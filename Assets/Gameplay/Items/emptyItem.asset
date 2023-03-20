@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: emptyItem
   m_EditorClassIdentifier: 
   id: 0
-  itemName: 
+  itemName: Empty
   stackable: 0
+  ItemType: 2
