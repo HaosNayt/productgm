@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     public List<InventorySlot> inventory = new();
     public int selectedSlot;
 
+    
 
     private void Awake()
     {
@@ -83,7 +84,7 @@ public class InventoryManager : MonoBehaviour
 
     public void Attack(){
         RaycastHit target;
-        if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out target, 2)){
+        if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out target, 3)){
             if(target.collider.tag == "Enemy"){
                 target.collider.gameObject.GetComponent<Enemy>().health -= inventory[selectedSlot].item.damage;
             }
