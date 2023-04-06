@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    Animator animator;
+
     public int health = 100;
     public int damage = 5;
 
@@ -29,6 +31,8 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
     }
 
 
@@ -46,7 +50,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Death();
+            animator.SetTrigger("Die");
         }
     }
 
@@ -54,7 +58,11 @@ public class Enemy : MonoBehaviour
     {
         if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet) agent.SetDestination(walkPoint);
+        if (walkPointSet)
+        {
+            animator.SetBool("Walk Forward", true);
+            agent.SetDestination(walkPoint);
+        }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -72,18 +80,21 @@ public class Enemy : MonoBehaviour
         {
             walkPointSet = true;
         }
+
     }
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetBool("Walk Forward", true);
     }
 
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
-
+        animator.SetBool("Walk Forward", false);
+        animator.SetTrigger("Stab Attack");
 
 
         if (!alreadyAtacked)
@@ -99,8 +110,9 @@ public class Enemy : MonoBehaviour
         alreadyAtacked = false;
     }
 
-    private void Death()
-    {
-        Destroy(gameObject);
-    }
+    // private void Death()
+    // {
+    //     animator.SetTrigger("Die");
+    //     Destroy(gameObject);
+    // }
 }
