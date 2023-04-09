@@ -20,6 +20,7 @@ public class death : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Destroy(animator.gameObject);
+        Instantiate(animator.GetComponent<Enemy>().drop[0], animator.gameObject.transform.position, Quaternion.identity);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

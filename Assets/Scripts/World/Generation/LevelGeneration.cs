@@ -37,7 +37,6 @@ public class LevelGeneration : MonoBehaviour
             {
                 Debug.Log("proc");
                 GameObject newRoom = Instantiate(assets[0], connections[i].transform.position, Quaternion.identity);
-
                 connections[i].SetActive(false);
             }
 
