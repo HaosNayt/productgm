@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
@@ -15,7 +13,8 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if(collider.tag == "Player"){
+        if (collider.tag == "Player")
+        {
             Pickup();
         }
     }
